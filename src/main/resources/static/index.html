@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dear Diary</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header>
+  <div class="brand">📔 Dear <span>Diary</span></div>
+  <div class="session">
+    <span id="who" class="muted">Not logged in</span>
+    <button id="logout" class="ghost hidden">Log out</button>
+  </div>
+</header>
+
+<main>
+  <!-- Logged out -->
+  <section id="login-view" class="card login-card">
+    <h2>Sign in to your diary</h2>
+    <form id="login-form">
+      <label>Username <input id="username" autocomplete="username" placeholder="alice"></label>
+      <label>Password <input id="password" type="password" autocomplete="current-password" placeholder="••••••"></label>
+      <button type="submit">Log in</button>
+      <p id="login-error" class="error"></p>
+    </form>
+  </section>
+
+  <!-- Logged in -->
+  <div id="app-view" class="layout hidden">
+    <section class="card">
+      <h2>New entry</h2>
+      <form id="entry-form">
+        <label>Date <input id="entry-date" type="date" required></label>
+        <label>Title <input id="entry-title" maxlength="120" placeholder="What happened today?" required></label>
+        <label>Entry <textarea id="entry-body" rows="7" maxlength="5000" placeholder="Dear diary…"></textarea></label>
+        <button type="submit">Save entry</button>
+        <p id="entry-error" class="error"></p>
+      </form>
+    </section>
+
+    <section>
+      <form id="search-form" class="search">
+        <input id="search" type="search" placeholder="Search my entries…">
+        <button type="submit" class="ghost">Search</button>
+      </form>
+      <p id="count" class="muted"></p>
+      <div id="entries"></div>
+    </section>
+  </div>
+</main>
+
+<template id="entry-tpl">
+  <article class="card entry">
+    <div class="entry-head">
+      <div>
+        <h3 class="entry-title"></h3>
+        <time class="entry-date muted"></time>
+      </div>
+      <button type="button" class="danger" title="Delete entry">Delete</button>
+    </div>
+    <p class="entry-body"></p>
+  </article>
+</template>
+
+<script src="app.js"></script>
+</body>
+</html>
