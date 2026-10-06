@@ -64,24 +64,26 @@ delete the file.
 >    a server error.
 
 All three problems come from **the same mistake** in the code. Find it and fix it **everywhere
-it appears**. Fixing only the two screens above is not enough.
+it appears**.
 
 After your fix:
 
-- Nobody can log in without the correct username **and** password.
-- A user can only see, add or delete entries in **their own** diary.
-- Text containing quotes, apostrophes, dashes and similar characters is handled correctly.
-  It is saved and shown **exactly as typed**. A login or search with such text just fails
-  normally ("invalid username or password", or no results), never with an error.
-- Everything else works as before.
+- Logging in succeeds **only** when the username and password both exactly match a stored user.
+  Anything else returns `401` with "Invalid username or password".
+- Every list, read, add and delete request affects **only** the logged-in user's own entries.
+- Any text, including `'`, `"`, `--`, `;` and `%`, is saved and returned **exactly as typed**,
+  character for character.
+- No input to any screen produces a `500` server error.
 
 ## Rules
 
-- Fix the cause of the problem. Don't block, strip or escape particular characters yourself.
-  Your fix has to work for **any** input, not just the inputs used in the tests.
-- Keep your changes small and focused. Only change what the fix needs.
-- The app stores passwords in plain text. That is a real problem, but it is **not** part of
-  this question, so leave it alone.
+- Change only files under `src/main/java/`. Don't change anything under `src/test/`, or
+  `schema.sql`, `data.sql`, or `pom.xml`.
+- Don't change, remove, escape or reject any characters in what the user types. The value that
+  reaches the database must be exactly what the user typed.
+- Don't change the API. Keep the same URLs, request bodies and response bodies.
+- Don't change how passwords are stored. They stay in plain text, which is out of scope for
+  this question.
 
 ## Checking your work
 
